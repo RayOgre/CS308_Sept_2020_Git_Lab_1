@@ -14,10 +14,18 @@ int main(int argc, char* argv[]) {
 		printf("Usage: ./sqrt input\n");
 		exit(-1);
 	}
-
+	
 	// Checking whether input is a number or not.
 	int len = strlen(argv[1]);
-	for (int i = 0; i<len; i++) {
+	if (len==1 && argv[1][0]=='-') {
+		printf("Input is not a valid number.\n");
+		exit(-1);
+	}
+	if (!(argv[1][0]=='-' && len>1) && !argv[1][0]) {
+		printf("Input is not a valid number.\n");
+		exit(-1);
+	}
+	for (int i = 1; i<len; i++) {
 		if (!isdigit(argv[1][i])) {
 			printf("Input is not a valid number.\n");
 			exit(-1);
@@ -25,7 +33,13 @@ int main(int argc, char* argv[]) {
 	}
 
 	int input = atoi(argv[1]);
-	printf("Sqrt of %d is %f\n",input,sqrt(input));
+	// Handling negative numbers
+	if (input<0) {
+		printf("Sqrt of %d is %fi\n",input,sqrt(-1*input));
+	}
+	else {
+		printf("Sqrt of %d is %f\n",input,sqrt(input));
+	}
 	printf("End of program. Exiting.\n");
 	return(0);
 
